@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/11 13:35:45 by cchen            ###   ########.fr       */
+/*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
+/*   Updated: 2022/01/11 13:43:01 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include <fcntl.h>
+#include <unistd.h>
 #include "ft_stdio.h"
+#include "get_next_line.h"
+#include "ft_stdlib.h"
 
-int	main(int argc, char **argv)
+int	read_block(char *filename)
 {
-	if (argc != 2)
+	int		fd;
+	char	*line;
+
+	fd = open(filename, O_RDONLY);
+	while (get_next_line(fd, &line) > 0)
 	{
-		ft_putendl("usage: ./fillit source_file");
-		return (1);
+		ft_putendl(line);
+		ft_strdel(&line);
 	}
-	read_block(argv[1]);
+	close(fd);
 	return (0);
 }
