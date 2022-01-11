@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/11 11:48:31 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/11 13:06:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		ft_putendl("usage");
+		ft_putendl("usage: ./fillit source_file");
 		return (1);
 	}
 	ft_putendl(argv[1]);
