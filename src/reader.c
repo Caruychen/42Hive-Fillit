@@ -6,14 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 16:39:56 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/12 16:58:37 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include "ft_stdio.h"
-#include "get_next_line.h"
 #include "ft_stdlib.h"
 #include "fillit.h"
 
@@ -22,9 +21,9 @@ static long	read_piece(int fd, char *buff, long *bytes)
 	long	ret;
 
 	ret = 0;
-	while (*bytes < 21)
+	while (*bytes < TET_SIZE + 1)
 	{
-		ret = read(fd, buff + *bytes, 21 - *bytes);
+		ret = read(fd, buff + *bytes, TET_SIZE + 1 - *bytes);
 		if (ret < 0)
 			return (*bytes = ret);
 		if (ret == 0)
@@ -36,7 +35,7 @@ static long	read_piece(int fd, char *buff, long *bytes)
 
 static long	get_next_piece(int fd)
 {
-	char	buff[21];
+	char	buff[TET_SIZE + 1];
 	long	bytes;
 
 	bytes = 0;
