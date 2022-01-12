@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 12:58:14 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/12 14:57:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,7 @@
 #include "ft_stdio.h"
 #include "get_next_line.h"
 #include "ft_stdlib.h"
-
-static int	valid_char(char *piece, int index)
-{
-	char	c;
-
-	c = piece[index];
-	if (index % 5 < 4)
-		return (c == '#' || c == '.');
-	return (c == '\n');
-}
-
-static int	valid_blocks(char *piece, int index)
-{
-	static unsigned int	vertices;
-	static unsigned int	blocks;
-
-	if (index == 0)
-	{
-		vertices = 0;
-		blocks = 0;
-	}
-	blocks += piece[index] == '#';
-}
-
-static int	valid_piece(char *piece, int bytes)
-{
-	int	index;
-
-	index = 0;
-	while (index < 20)
-	{
-		if (!(valid_char(piece, index)))
-			return (0);
-		if (!(valid_blocks(piece, index)))
-			return (0);
-		++index;
-	}
-	if (bytes == 21 && piece[index] != '\n')
-		return (0);
-	return (1);
-}
+#include "fillit.h"
 
 static long	read_piece(int fd, char *buff, long *bytes)
 {
