@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 10:47:58 by cchen             #+#    #+#              #
-#    Updated: 2022/01/11 13:03:32 by cchen            ###   ########.fr        #
+#    Updated: 2022/01/12 14:27:43 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,6 @@ clean:
 
 fclean:
 	$(MAKE) -C $(LIBFT) fclean
-	@rm $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
