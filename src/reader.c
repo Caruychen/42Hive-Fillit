@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 12:53:11 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/12 12:58:14 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	valid_blocks(char *piece, int index)
 		vertices = 0;
 		blocks = 0;
 	}
+	blocks += piece[index] == '#';
 }
 
 static int	valid_piece(char *piece, int bytes)
@@ -67,7 +68,7 @@ static long	read_piece(int fd, char *buff, long *bytes)
 		if (ret < 0)
 			return (*bytes = ret);
 		if (ret == 0)
-			break;
+			break ;
 		*bytes += ret;
 	}
 	return (*bytes);
