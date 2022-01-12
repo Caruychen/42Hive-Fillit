@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 14:57:32 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/12 16:39:56 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static long	read_piece(int fd, char *buff, long *bytes)
 	return (*bytes);
 }
 
-static int	get_next_piece(int fd)
+static long	get_next_piece(int fd)
 {
 	char	buff[21];
 	long	bytes;
@@ -47,15 +47,16 @@ static int	get_next_piece(int fd)
 	return (bytes);
 }
 
-int	read_inputs(char *filename)
+int	read_input(char *filename)
 {
 	int		fd;
 
 	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (-1);
 	while (get_next_piece(fd) > 0)
 	{
 		ft_putendl("valid");
 	}
-	close(fd);
-	return (0);
+	return (close(fd));
 }

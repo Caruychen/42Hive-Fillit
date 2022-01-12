@@ -6,9 +6,11 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:44:50 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 14:57:29 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/12 16:40:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_stdio.h"
 
 static int	valid_char(char *piece, int index)
 {
@@ -38,7 +40,7 @@ static int	valid_blocks(char *piece, int index)
 			++links;
 	}
 	blocks += piece[index] == '#';
-	if ((links + 1 < blocks) || blocks > 4)
+	if ((blocks == 4 && links < 3) || blocks > 4)
 		return (0);
 	return (1);
 }
@@ -50,9 +52,7 @@ int	valid_piece(char *piece, int bytes)
 	index = 0;
 	while (index < 20)
 	{
-		if (!(valid_char(piece, index)))
-			return (0);
-		if (!(valid_blocks(piece, index)))
+		if (!valid_char(piece, index) || !valid_blocks(piece, index))
 			return (0);
 		++index;
 	}
@@ -60,4 +60,3 @@ int	valid_piece(char *piece, int bytes)
 		return (0);
 	return (1);
 }
-
