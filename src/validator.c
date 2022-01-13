@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:44:50 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/12 16:58:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/13 12:10:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ static int	valid_blocks(char *piece, int index)
 			++links;
 	}
 	blocks += piece[index] == '#';
-	return (!((blocks == 4 && links < 3) || blocks > 4));
+	return (!(
+			(index == TET_SIZE - 1 && blocks < 4)
+			|| (blocks == 4 && links < 3)
+			|| blocks > 4
+		));
 }
 
 static int	valid_end(char c, int bytes)
