@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/01 15:25:03 by cchen             #+#    #+#              #
-#    Updated: 2022/01/11 10:58:16 by cchen            ###   ########.fr        #
+#    Updated: 2022/01/13 13:48:36 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra
 INCLUDES := -I./includes -I./includes/libft
 
-SRC_DIR := src
-OBJ_DIR := obj
+SRC_DIR := ./
+OBJ_DIR := ./
 SUB_DIR := $(shell find $(SRC_DIR) -type d -mindepth 1 -exec basename {} \;) 
 SRCS := $(shell find $(SRC_DIR) -type f | grep -E "\.c$$")
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -37,7 +37,7 @@ $(NAME): $(OBJS)
 	ar -rcs $(NAME) $^
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)

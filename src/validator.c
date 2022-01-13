@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:44:50 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/13 12:10:12 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/13 13:40:55 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ static int	valid_char(char *piece, int index)
 	return (c == '\n');
 }
 
+static int	validity_check(int index, unsigned int links, unsigned int blocks)
+{
+	return (!(
+			(index == TET_SIZE - 1 && blocks < 4)
+			|| (blocks == 4 && links < 3)
+			|| blocks > 4
+		));
+}
+
 static int	valid_blocks(char *piece, int index)
 {
 	static unsigned int	links;
@@ -32,6 +41,7 @@ static int	valid_blocks(char *piece, int index)
 		links = 0;
 		blocks = 0;
 	}
+	blocks += piece[index] == '#';
 	if (piece[index] == '#')
 	{
 		if ((index - 1) >= 0 && piece[index - 1] == '#')
@@ -39,12 +49,7 @@ static int	valid_blocks(char *piece, int index)
 		if ((index - 5) >= 0 && piece[index - 5] == '#')
 			++links;
 	}
-	blocks += piece[index] == '#';
-	return (!(
-			(index == TET_SIZE - 1 && blocks < 4)
-			|| (blocks == 4 && links < 3)
-			|| blocks > 4
-		));
+	return (validity_check(index, links, blocks));
 }
 
 static int	valid_end(char c, int bytes)
@@ -59,7 +64,8 @@ int	valid_piece(char *piece, int bytes)
 	index = 0;
 	while (index < TET_SIZE)
 	{
-		if (!valid_char(piece, index) || !valid_blocks(piece, index))
+		if (!valid_char(piece, index)
+			|| !valid_blocks(piece, index))
 			return (0);
 		++index;
 	}

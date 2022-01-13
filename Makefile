@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 10:47:58 by cchen             #+#    #+#              #
-#    Updated: 2022/01/12 14:27:43 by cchen            ###   ########.fr        #
+#    Updated: 2022/01/13 13:51:34 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := fillit
 
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra
-INCLUDES := -I./libft/includes -I./libft/includes/libft -I./src
+INCLUDES := -I./libft  -I./src
 L_FT := -L./libft -lft
 
 SRC_DIR := src
