@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:44:50 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/13 15:31:28 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/15 22:28:06 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	valid_char(char *piece, int index)
 static int	validity_check(int index, unsigned int links, unsigned int blocks)
 {
 	return (!(
-			(index == TET_SIZE - 1 && blocks < 4)
+			(index == TET_BUFF - 1 && blocks < 4)
 			|| (blocks == 4 && links < 3)
 			|| blocks > 4
 		));
@@ -54,15 +54,17 @@ static int	valid_blocks(char *piece, int index)
 
 static int	valid_end(char c, int bytes)
 {
-	return (!(bytes == TET_SIZE + 1 && c != '\n'));
+	return (!(bytes == TET_BUFF + 1 && c != '\n'));
 }
 
 int	valid_piece(char *piece, int bytes)
 {
 	int	index;
 
+	if (bytes < TET_BUFF)
+		return (0);
 	index = 0;
-	while (index < TET_SIZE)
+	while (index < TET_BUFF)
 	{
 		if (!valid_char(piece, index)
 			|| !valid_blocks(piece, index))
