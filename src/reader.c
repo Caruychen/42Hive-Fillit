@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/13 15:50:43 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/15 23:38:39 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static long	read_piece(int fd, char *buff, long *bytes)
 	long	ret;
 
 	ret = 0;
-	while (*bytes < TET_SIZE + 1)
+	while (*bytes < TET_BUFF + 1)
 	{
-		ret = read(fd, buff + *bytes, TET_SIZE + 1 - *bytes);
+		ret = read(fd, buff + *bytes, TET_BUFF + 1 - *bytes);
 		if (ret < 0)
 			return (*bytes = ret);
 		if (ret == 0)
@@ -33,9 +33,8 @@ static long	read_piece(int fd, char *buff, long *bytes)
 	return (*bytes);
 }
 
-static long	get_next_piece(int fd)
+static long	get_next_piece(int fd, char *buff)
 {
-	char	buff[TET_SIZE + 1];
 	long	bytes;
 
 	bytes = 0;
@@ -49,11 +48,13 @@ static long	get_next_piece(int fd)
 int	read_input(char *filename)
 {
 	int		fd;
+	uint8_t	count;
+	char	buff[TET_BUFF + 1];
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	while (get_next_piece(fd) > 0)
+	while (get_next_piece(fd, buff) > 0)
 	{
 		ft_putendl("valid");
 	}
