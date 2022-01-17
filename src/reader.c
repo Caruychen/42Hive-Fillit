@@ -6,13 +6,12 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/15 23:38:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 09:20:45 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "ft_stdio.h"
 #include "ft_stdlib.h"
 #include "fillit.h"
 
@@ -45,7 +44,7 @@ static long	get_next_piece(int fd, char *buff)
 	return (bytes);
 }
 
-int	read_input(char *filename)
+int	read_input(char *filename, t_piece *pieces)
 {
 	int		fd;
 	uint8_t	count;
@@ -54,9 +53,14 @@ int	read_input(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (-1);
+	count = 0;
 	while (get_next_piece(fd, buff) > 0)
 	{
-		ft_putendl("valid");
+		if (count > 26)
+			break ;
+		pieces[count] = build_piece(buff, count);
+		++count;
 	}
-	return (close(fd));
+	close(fd);
+	return (count);
 }
