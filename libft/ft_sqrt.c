@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 13:29:26 by cchen            ###   ########.fr       */
+/*   Created: 2022/01/17 13:30:05 by cchen             #+#    #+#             */
+/*   Updated: 2022/01/17 13:34:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-#include "ft_stdio.h"
-#include "ft_string.h"
-
-int	main(int argc, char **argv)
+int	ft_sqrt(int nb)
 {
-	t_piece		pieces[MAX_PIECES + 1];
+	long int	start;
+	long int	end;
+	long int	mid;
 
-	if (argc != 2)
+	start = 0;
+	end = nb;
+	while (start <= end)
 	{
-		ft_putendl("usage: ./fillit source_file");
-		return (1);
-	}
-	ft_bzero(pieces, sizeof(t_piece) * (MAX_PIECES + 1));
-	if (read_input(argv[1], pieces) < 0)
-	{
-		ft_putendl("error");
-		return (-1);
+		mid = (start + end) / 2;
+		if (mid * mid == nb)
+			return (mid);
+		else  if (mid * mid  < nb)
+			start = mid + 1;
+		else
+			end = mid - 1;
 	}
 	return (0);
 }

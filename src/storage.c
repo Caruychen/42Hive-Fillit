@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:45:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 09:20:47 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 13:18:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	get_dimensions(const char *str, t_point *min, t_point *max)
 	}
 }
 
-t_piece	build_piece(const char *str, const uint8_t count)
+t_piece	build_piece(const char *str, const int count)
 {
 	t_piece		piece;
 	t_point		start;

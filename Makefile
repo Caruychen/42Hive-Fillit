@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 10:47:58 by cchen             #+#    #+#              #
-#    Updated: 2022/01/13 13:51:34 by cchen            ###   ########.fr        #
+#    Updated: 2022/01/17 15:18:53 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJ_DIR := obj
 LIBFT := libft
 
 SRC := $(shell find $(SRC_DIR) -type f | grep -E "\.c$$")
+HEADER := $(SRC_DIR)/$(NAME).h
 
 .PHONY: all clean fclean re
 
@@ -29,7 +30,7 @@ all:
 	$(MAKE) -C $(LIBFT)
 	$(MAKE) $(NAME)
 
-$(NAME):
+$(NAME): $(SRC) $(HEADER)
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRC) $(L_FT) -o $(NAME)
 
 clean:
