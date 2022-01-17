@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 09:20:45 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 13:15:11 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "ft_stdlib.h"
 #include "fillit.h"
+#include "ft_stdio.h"
 
 static long	read_piece(int fd, char *buff, long *bytes)
 {
@@ -41,26 +42,32 @@ static long	get_next_piece(int fd, char *buff)
 		return (bytes);
 	if (!valid_piece(buff, (int) bytes))
 		return (-1);
-	return (bytes);
+	return (1);
+}
+
+static int	reading(int fd, char *buff, int *count)
+{
+	int	ret;
+
+	ret = (int) get_next_piece(fd, buff);
+	if (ret < 0 || *count == 26)
+		return (*count = -1);
+	*count += ret;
+	return (ret);
 }
 
 int	read_input(char *filename, t_piece *pieces)
 {
 	int		fd;
-	uint8_t	count;
+	int		count;
 	char	buff[TET_BUFF + 1];
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (-1);
 	count = 0;
-	while (get_next_piece(fd, buff) > 0)
-	{
-		if (count > 26)
-			break ;
+	while (reading(fd, buff, &count) > 0)
 		pieces[count] = build_piece(buff, count);
-		++count;
-	}
 	close(fd);
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 09:25:10 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 13:15:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ft_bzero(pieces, sizeof(t_piece) * (MAX_PIECES + 1));
-	read_input(argv[1], pieces);
+	if (read_input(argv[1], pieces) < 0)
+	{
+		ft_putendl("error");
+		return (-1);
+	}
 	return (0);
 }
