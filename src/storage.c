@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:45:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/15 23:38:16 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 09:20:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static void	assign_points(uint8_t index, t_point *min, t_point *max)
 		max->y = index / 5;
 }
 
-static void	get_dimensions(const char *str, t_piece *piece,
-	t_point *min, t_point *max)
+static void	get_dimensions(const char *str, t_point *min, t_point *max)
 {
 	uint8_t		index;
 
@@ -45,8 +44,6 @@ static void	get_dimensions(const char *str, t_piece *piece,
 			assign_points(index, min, max);
 		++index;
 	}
-	piece->width = max.x - min.x + 1;
-	piece->height = max.y - min.y + 1;
 }
 
 t_piece	build_piece(const char *str, const uint8_t count)
@@ -54,19 +51,25 @@ t_piece	build_piece(const char *str, const uint8_t count)
 	t_piece		piece;
 	t_point		start;
 	t_point		end;
+	uint8_t		x;
+	uint8_t		y;
 
+	get_dimensions(str, &start, &end);
+	piece.width = end.x - start.x + 1;
+	piece.height = end.y - start.y + 1;
 	piece.letter = 'A' + count;
 	piece.barray = 0;
-	get_dimensions(str, &piece, &start, &end);
-	while (start.y < <= end.y)
+	y = 0;
+	while (y < piece.height)
 	{
-		while (start.x <= end.x)
+		x = 0;
+		while (x < piece.width)
 		{
-			if (str[start.y * 5 + start.x] == '#')
-				piece.barray |= 1L << ();
-			++start.x;
+			if (str[(start.y + y) * 5 + start.x + x] == '#')
+				piece.barray |= 1L << (16 * (y + 1) - 1 - x);
+			++x;
 		}
-		++start.y;
+		++y;
 	}
 	return (piece);
 }

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/15 22:51:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 09:24:40 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define FILLIT_H
 
 # define TET_BUFF 20
+# define MAX_PIECES 26
+# include <stdint.h>
 
 typedef struct s_piece
 {
@@ -31,7 +33,8 @@ typedef struct s_point
 	uint8_t		y;
 }	t_point;
 
-int	valid_piece(char *piece, int bytes);
-int	read_input(char *filename);
+int		valid_piece(char *piece, int bytes);
+int		read_input(char *filename, t_piece *pieces);
+t_piece	build_piece(const char *str, const uint8_t count);
 
 #endif
