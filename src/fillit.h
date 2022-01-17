@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 09:24:40 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/17 15:17:48 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ typedef struct s_point
 
 int		valid_piece(char *piece, int bytes);
 int		read_input(char *filename, t_piece *pieces);
-t_piece	build_piece(const char *str, const uint8_t count);
+t_piece	build_piece(const char *str, const int count);
 
 #endif
