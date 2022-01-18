@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:09 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 16:11:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:22:14 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,26 @@ static void	init_grid(char **grid, int base)
 	}
 }
 
-static void	insert_piece(char **grid, int base, t_piece *piece)
+static void	insert_char(char **grid, int base, t_point p, t_piece piece)
 {
-	int	y;
-	int x;
+	(*grid)[(piece.y + p.y) * (base + 1) + piece.x + p.x] = piece.letter;
+}
 
-	y = 0;
-	while (y < piece->height)
+static void	insert_piece(char **grid, int base, t_piece piece)
+{
+	t_point	p;
+
+	p.y = 0;
+	while (p.y < piece.height)
 	{
-		x = 0;
-		while (x < piece->width)
+		p.x = 0;
+		while (p.x < piece.width)
 		{
-			if ((piece->barray >> (16 * (y + 1) - 1 - x)) & 1)
-				(*grid)[(piece->y + y) * (base + 1) + piece->x + x] = piece->letter;
-			++x;
+			if ((piece.barray >> (16 * (p.y + 1) - 1 - p.x)) & 1)
+				insert_char(grid, base, p, piece);
+			++p.x;
 		}
-		++y;
+		++p.y;
 	}
 }
 
@@ -52,7 +56,7 @@ static void	fill_grid(char **grid, int base, t_piece *pieces)
 {
 	while (pieces->letter)
 	{
-		insert_piece(grid, base, pieces);
+		insert_piece(grid, base, *pieces);
 		++pieces;
 	}
 }

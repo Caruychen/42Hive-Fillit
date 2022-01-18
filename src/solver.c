@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 15:32:59 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:25:14 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,6 @@
 #include "ft_stdio.h"
 #include "ft_string.h"
 #include <stdio.h>
-
-static int	find_sqr_base(int blocks)
-{
-	int	base;
-
-	base = ft_sqrt(blocks);
-	if (!base)
-	{
-		base = 3;
-		while (base * base < blocks)
-			++base;
-	}
-	return (base);
-}
 
 static inline int	test_fit(uint16_t *grid, t_piece *piece)
 {
@@ -67,7 +53,7 @@ static int	fit_piece(uint16_t *grid, int base, t_piece *piece)
 
 static int	fill_grid(int base, t_piece *pieces)
 {
-	int	index;
+	int			index;
 	uint16_t	grid[16];
 
 	index = 0;
@@ -84,8 +70,16 @@ static int	fill_grid(int base, t_piece *pieces)
 int	solve_square(t_piece *pieces, int count)
 {
 	int	base;
+	int	blocks;
 
-	base = find_sqr_base(count * 4);
+	blocks = count * 4;
+	base = ft_sqrt(blocks);
+	if (!base)
+	{
+		base = 3;
+		while (base * base < blocks)
+			++base;
+	}
 	while (!fill_grid(base, pieces))
 		++base;
 	return (base);
