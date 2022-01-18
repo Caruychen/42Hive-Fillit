@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 14:55:06 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:05:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 {
 	t_piece		pieces[MAX_PIECES + 1];
 	int			count;
+	int			base;
 
 	if (argc != 2)
 	{
@@ -30,6 +31,7 @@ int	main(int argc, char **argv)
 		ft_putendl("error");
 		return (-1);
 	}
-	ft_putnbr(solve_square(pieces, count));
+	base = solve_square(pieces, count);
+	print_grid(pieces, base);
 	return (0);
 }
