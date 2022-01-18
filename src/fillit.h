@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 15:17:48 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:18:08 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_point
 }	t_point;
 
 int		valid_piece(char *piece, int bytes);
-int		read_input(char *filename, t_piece *pieces);
+int		read_input(char *filename, t_piece *pieces, int *count);
 t_piece	build_piece(const char *str, const int count);
+int	solve_square(t_piece *pieces, int count);
 
 #endif
