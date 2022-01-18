@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 14:55:08 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:32:59 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ft_math.h"
 #include "ft_stdio.h"
 #include "ft_string.h"
+#include <stdio.h>
 
 static int	find_sqr_base(int blocks)
 {
@@ -41,6 +42,8 @@ static inline void	set_piece(uint16_t *grid, t_piece *piece)
 
 static int	fit_piece(uint16_t *grid, int base, t_piece *piece)
 {
+	if (piece->y == 0 && piece->x == 0 && *(uint64_t *)(grid))
+		set_piece(grid, piece);
 	if (piece->y != 0 || piece->x != 0)
 		set_piece(grid, piece);
 	while (piece->y <= base - piece->height)
