@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/17 19:19:45 by ssulkuma         ###   ########.fr       */
+/*   Updated: 2022/01/18 23:04:49 by ssulkuma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	main(int argc, char **argv)
 		ft_putendl("error");
 		return (-1);
 	}
-	else
-	{
-		board = empty_board(count);
-		print_board(board, count);
-	}
+	board = empty_board(count);
+	print_board(board, count);
 	return (0);
 }
