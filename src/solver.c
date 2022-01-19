@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 17:00:34 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/19 08:33:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,35 @@
 
 static inline int	test_fit(uint16_t *grid, t_piece *piece)
 {
-	printf("at test: %llu\n", *(uint64_t *)(grid));
 	return (!(*(uint64_t *)(grid + piece->y) & (piece->barray >> piece->x)));
 }
 
-static inline void	set_piece(uint16_t *grid, t_piece *piece)
+static inline int	set_piece(uint16_t *grid, t_piece *piece)
 {
 	*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
-	printf("after set: %llu\n", *(uint64_t *)(grid));
+	return (1);
 }
 
 static int	fit_piece(uint16_t *grid, int base, t_piece *piece)
 {
 	static int	res;
+	t_point		start;
 
-	if (res == -1 && piece->y == 0 && piece->x == 0 && *(uint64_t *)(grid))
+	start.x = piece->x;
+	start.y = piece->y;
+	if (res == -1 && (*(uint64_t *)(grid + start.y)))
+	{
 		set_piece(grid, piece);
-	if (piece->y != 0 || piece->x != 0)
-		set_piece(grid, piece);
+		piece->x++;
+	}
 	while (piece->y <= base - piece->height)
 	{
-		piece->x = 0;
+		if (piece->y != start.y)
+			piece->x = 0;
 		while (piece->x <= base - piece->width)
 		{
-			printf("base: %d, char: %c,  y: %d x: %d\n", base, piece->letter, piece->y, piece->x);
 			if (test_fit(grid, piece))
-			{
-				set_piece(grid, piece);
-				return (res = 1);
-			}
+				return (res = set_piece(grid, piece));
 			piece->x++;
 		}
 		piece->y++;
@@ -67,10 +67,7 @@ static int	fill_grid(int base, t_piece *pieces)
 	{
 		index += fit_piece(grid, base, &pieces[index]);
 		if (index == -1)
-		{
-			printf("ended: %llu\n", *(uint64_t *)(grid));
 			return (0);
-		}
 	}
 	return (1);
 }
