@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 16:12:38 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:18:42 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # define MAX_PIECES 26
 # include <stdint.h>
 
+typedef struct s_point
+{
+	uint8_t		x;
+	uint8_t		y;
+}	t_point;
+
 typedef struct s_piece
 {
 	uint64_t	barray;
@@ -26,12 +32,6 @@ typedef struct s_piece
 	uint8_t		width;
 	uint8_t		height;
 }	t_piece;
-
-typedef struct s_point
-{
-	uint8_t		x;
-	uint8_t		y;
-}	t_point;
 
 int		valid_piece(char *piece, int bytes);
 int		read_input(char *filename, t_piece *pieces, int *count);

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/19 08:33:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:18:44 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "ft_math.h"
 #include "ft_stdio.h"
 #include "ft_string.h"
-#include <stdio.h>
 
 static inline int	test_fit(uint16_t *grid, t_piece *piece)
 {
