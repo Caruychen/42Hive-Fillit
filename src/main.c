@@ -6,13 +6,20 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 16:05:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 11:21:12 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "ft_stdio.h"
 #include "ft_string.h"
+#include <stdlib.h>
+
+static void	error(char *str)
+{
+	ft_putendl(str);
+	exit(EXIT_FAILURE);
+}
 
 int	main(int argc, char **argv)
 {
@@ -21,10 +28,7 @@ int	main(int argc, char **argv)
 	int			base;
 
 	if (argc != 2)
-	{
-		ft_putendl("usage: ./fillit source_file");
-		return (1);
-	}
+		error("usage: ./fillit source_file");
 	ft_bzero(pieces, sizeof(*pieces) * (MAX_PIECES + 1));
 	if (read_input(argv[1], pieces, &count) < 0)
 	{
