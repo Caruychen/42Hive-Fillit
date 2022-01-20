@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 15:14:41 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:35:01 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static int	fill_grid(uint16_t *grid, int base, t_piece *piece)
 
 int	solve_square(t_piece *pieces, int count)
 {
-	int	base;
-	int	blocks;
+	int			base;
+	int			blocks;
 	uint16_t	grid[16];
 
 	blocks = count * 4;
