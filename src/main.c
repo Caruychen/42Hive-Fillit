@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 23:04:49 by ssulkuma         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:43:29 by ssulkuma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 int	main(int argc, char **argv)
 {
 	t_piece		pieces[MAX_PIECES + 1];
-	char	**board;
-	int		count;
+	int			board;
+	int			count;
 
 	if (argc != 2)
 	{
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		ft_putendl("error");
 		return (-1);
 	}
-	board = empty_board(count);
-	print_board(board, count);
+	board = solve_map(count, pieces);
+	print_board(board, pieces);
 	return (0);
 }
