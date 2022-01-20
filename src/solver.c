@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 12:07:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 13:54:39 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,36 @@
 #include "ft_math.h"
 #include "ft_string.h"
 
-static inline int	test_fit(uint16_t *grid, t_piece *piece)
+static int	fill_grid(uint16_t *grid, int base, t_piece *piece)
 {
-	return (!(*(uint64_t *)(grid + piece->y) & (piece->barray >> piece->x)));
-}
-
-static inline int	set_piece(uint16_t *grid, t_piece *piece)
-{
-	*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
-	return (1);
-}
-
-static int	fit_piece(uint16_t *grid, int base, t_piece *piece)
-{
-	static int	res;
-	int			pos;
-
-	if (res == -1 && (*(uint64_t *)(grid + piece->y)))
-	{
-		set_piece(grid, piece);
-		piece->x++;
-	}
-	if (piece->last && res != -1)
-		pos = piece->last->x + piece->last->y * base;
-	else
-		pos = piece->x + piece->y * base;
-	piece->y = pos / base;
+	if (piece->letter == 0)
+		return (1);
 	while (piece->y <= base - piece->height)
 	{
-		if (piece->y != pos / base)
-			piece->x = 0;
-		else
-			piece->x = pos % base;
+		piece->x = 0;
 		while (piece->x <= base - piece->width)
 		{
-			if (test_fit(grid, piece))
-				return (res = set_piece(grid, piece));
+			if (!(*(uint64_t *)(grid + piece->y) & (piece->barray >> piece->x)))
+			{
+				*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
+				if (fill_grid(grid, base, piece + 1))
+					return (1);
+				*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
+			}
 			piece->x++;
 		}
 		piece->y++;
 	}
-	piece->y = 0;
 	piece->x = 0;
-	return (res = -1);
-}
-
-static int	fill_grid(int base, t_piece *pieces)
-{
-	int			index;
-	uint16_t	grid[16];
-
-	index = 0;
-	ft_bzero(grid, sizeof(*grid) * 16);
-	while (pieces[index].letter != 0)
-	{
-		index += fit_piece(grid, base, &pieces[index]);
-		if (index == -1)
-			return (0);
-	}
-	return (1);
+	piece->y = 0;
+	return (0);
 }
 
 int	solve_square(t_piece *pieces, int count)
 {
 	int	base;
 	int	blocks;
+	uint16_t	grid[16];
 
 	blocks = count * 4;
 	base = ft_sqrt(blocks);
@@ -88,7 +53,11 @@ int	solve_square(t_piece *pieces, int count)
 		while (base * base < blocks)
 			++base;
 	}
-	while (!fill_grid(base, pieces))
+	ft_bzero(grid, sizeof(*grid) * 16);
+	while (!fill_grid(grid, base, pieces))
+	{
+		ft_bzero(grid, sizeof(*grid) * 16);
 		++base;
+	}
 	return (base);
 }
