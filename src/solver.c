@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/19 12:59:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 12:07:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,24 @@ static inline int	set_piece(uint16_t *grid, t_piece *piece)
 static int	fit_piece(uint16_t *grid, int base, t_piece *piece)
 {
 	static int	res;
-	t_point		start;
+	int			pos;
 
-	start.x = piece->x;
-	start.y = piece->y;
-	if (res == -1 && (*(uint64_t *)(grid + start.y)))
+	if (res == -1 && (*(uint64_t *)(grid + piece->y)))
 	{
 		set_piece(grid, piece);
 		piece->x++;
 	}
+	if (piece->last && res != -1)
+		pos = piece->last->x + piece->last->y * base;
+	else
+		pos = piece->x + piece->y * base;
+	piece->y = pos / base;
 	while (piece->y <= base - piece->height)
 	{
-		if (piece->y != start.y)
+		if (piece->y != pos / base)
 			piece->x = 0;
+		else
+			piece->x = pos % base;
 		while (piece->x <= base - piece->width)
 		{
 			if (test_fit(grid, piece))
