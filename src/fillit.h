@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 12:04:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:46:09 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,15 @@ typedef struct s_point
 	uint8_t		y;
 }	t_point;
 
-typedef struct s_piece	t_piece;
-struct			s_piece
+typedef struct s_piece
 {
 	uint64_t	barray;
-	t_piece		*last;
 	uint8_t		letter;
 	uint8_t		x;
 	uint8_t		y;
 	uint8_t		width;
 	uint8_t		height;
-};
+}	t_piece;
 
 int		valid_piece(char *piece, int bytes);
 int		read_input(char *filename, t_piece *pieces, int *count);

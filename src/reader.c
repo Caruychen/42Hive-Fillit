@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 12:05:26 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:46:34 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	read_input(char *filename, t_piece *pieces, int *count)
 {
 	int		fd;
 	char	buff[TET_BUFF + 1];
-	int		index;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -68,13 +67,6 @@ int	read_input(char *filename, t_piece *pieces, int *count)
 	while (reading(fd, buff, count) > 0)
 	{
 		pieces[*count] = build_piece(buff, *count);
-		index = *count - 1;
-		while (index >= 0)
-		{
-			if (pieces[index].barray == pieces[index].barray)
-				pieces[index].last = pieces + index;
-			--index;
-		}
 		++*count;
 	}
 	close(fd);
