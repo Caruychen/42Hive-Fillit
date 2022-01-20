@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 13:54:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:14:41 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,30 @@
 
 static int	fill_grid(uint16_t *grid, int base, t_piece *piece)
 {
-	if (piece->letter == 0)
+	t_piece	local;
+
+	local = *piece;
+	if (local.letter == 0)
 		return (1);
-	while (piece->y <= base - piece->height)
+	local.y = 0;
+	while (local.y <= base - local.height)
 	{
-		piece->x = 0;
-		while (piece->x <= base - piece->width)
+		local.x = 0;
+		while (local.x <= base - local.width)
 		{
-			if (!(*(uint64_t *)(grid + piece->y) & (piece->barray >> piece->x)))
+			if (!(*(uint64_t *)(grid + local.y) & (local.barray >> local.x)))
 			{
-				*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
+				piece->x = local.x;
+				piece->y = local.y;
+				*(uint64_t *)(grid + local.y) ^= local.barray >> local.x;
 				if (fill_grid(grid, base, piece + 1))
 					return (1);
-				*(uint64_t *)(grid + piece->y) ^= piece->barray >> piece->x;
+				*(uint64_t *)(grid + local.y) ^= local.barray >> local.x;
 			}
-			piece->x++;
+			local.x++;
 		}
-		piece->y++;
+		local.y++;
 	}
-	piece->x = 0;
-	piece->y = 0;
 	return (0);
 }
 
