@@ -6,15 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 15:46:34 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:24:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "ft_stdlib.h"
 #include "fillit.h"
-#include "ft_stdio.h"
 
 static long	read_piece(int fd, char *buff, long *bytes)
 {
@@ -55,7 +53,7 @@ static int	reading(int fd, char *buff, int *count)
 	return (ret);
 }
 
-int	read_input(char *filename, t_piece *pieces, int *count)
+int	read_input(const char *filename, t_piece *pieces, int *count)
 {
 	int		fd;
 	char	buff[TET_BUFF + 1];
@@ -65,10 +63,8 @@ int	read_input(char *filename, t_piece *pieces, int *count)
 		return (-1);
 	*count = 0;
 	while (reading(fd, buff, count) > 0)
-	{
-		pieces[*count] = build_piece(buff, *count);
-		++*count;
-	}
-	close(fd);
+		build_piece(pieces++, buff, (*count)++);
+	if (close(fd) == -1)
+		return (-1);
 	return (*count);
 }

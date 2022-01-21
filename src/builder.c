@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:45:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 13:39:46 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/21 13:57:35 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_points(t_point *min, t_point *max)
 	max->y = 0;
 }
 
-static void	assign_points(uint8_t index, t_point *min, t_point *max)
+static void	calc_points(uint8_t index, t_point *min, t_point *max)
 {
 	if (index % 5 < min->x)
 		min->x = index % 5;
@@ -32,44 +32,47 @@ static void	assign_points(uint8_t index, t_point *min, t_point *max)
 		max->y = index / 5;
 }
 
-static void	get_dimensions(const char *str, t_point *min, t_point *max)
+static void	get_dimensions(const char *str, t_point *start, t_point *end)
 {
 	uint8_t		index;
 
 	index = 0;
-	init_points(min, max);
+	init_points(start, end);
 	while (index < TET_BUFF)
 	{
 		if (str[index] == '#')
-			assign_points(index, min, max);
+			calc_points(index, start, end);
 		++index;
 	}
 }
 
-t_piece	build_piece(const char *str, const int count)
+static void	encode_piece(t_piece *piece, const char *str, t_point start)
 {
-	t_piece		piece;
+	t_point		curr;
+
+	piece->barray = 0;
+	curr.y = 0;
+	while (curr.y < piece->height)
+	{
+		curr.x = 0;
+		while (curr.x < piece->width)
+		{
+			if (str[(start.y + curr.y) * 5 + start.x + curr.x] == '#')
+				piece->barray |= 1L << (16 * (curr.y + 1) - 1 - curr.x);
+			++curr.x;
+		}
+		++curr.y;
+	}
+}
+
+void	build_piece(t_piece *piece, const char *str, const int count)
+{
 	t_point		start;
 	t_point		end;
-	uint8_t		x;
-	uint8_t		y;
 
 	get_dimensions(str, &start, &end);
-	piece.width = end.x - start.x + 1;
-	piece.height = end.y - start.y + 1;
-	piece.letter = 'A' + count;
-	piece.barray = 0;
-	y = 0;
-	while (y < piece.height)
-	{
-		x = 0;
-		while (x < piece.width)
-		{
-			if (str[(start.y + y) * 5 + start.x + x] == '#')
-				piece.barray |= 1L << (16 * (y + 1) - 1 - x);
-			++x;
-		}
-		++y;
-	}
-	return (piece);
+	piece->width = end.x - start.x + 1;
+	piece->height = end.y - start.y + 1;
+	piece->letter = 'A' + count;
+	encode_piece(piece, str, start);
 }

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 15:46:09 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/21 16:23:32 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct s_piece
 	uint8_t		height;
 }	t_piece;
 
-int		valid_piece(char *piece, int bytes);
-int		read_input(char *filename, t_piece *pieces, int *count);
-t_piece	build_piece(const char *str, const int count);
+int		valid_piece(const char *src, const int bytes);
+int		read_input(const char *filename, t_piece *pieces, int *count);
+void	build_piece(t_piece *piece, const char *str, const int count);
 int		solve_square(t_piece *pieces, int count);
 void	print_grid(t_piece *pieces, int base);
 
