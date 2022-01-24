@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:09 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/18 16:22:14 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/24 11:26:25 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_stdio.h"
 #include "ft_stdlib.h"
 
-static void	init_grid(char **grid, int base)
+static void	init_grid(char **grid, const int base)
 {
 	int	size;
 
@@ -29,12 +29,12 @@ static void	init_grid(char **grid, int base)
 	}
 }
 
-static void	insert_char(char **grid, int base, t_point p, t_piece piece)
+static void	insert_char(char **grid, const int base, t_point p, t_piece piece)
 {
 	(*grid)[(piece.y + p.y) * (base + 1) + piece.x + p.x] = piece.letter;
 }
 
-static void	insert_piece(char **grid, int base, t_piece piece)
+static void	insert_piece(char **grid, const int base, t_piece piece)
 {
 	t_point	p;
 
@@ -52,7 +52,7 @@ static void	insert_piece(char **grid, int base, t_piece piece)
 	}
 }
 
-static void	fill_grid(char **grid, int base, t_piece *pieces)
+static void	fill_grid(char **grid, const int base, t_piece *pieces)
 {
 	while (pieces->letter)
 	{
@@ -61,7 +61,7 @@ static void	fill_grid(char **grid, int base, t_piece *pieces)
 	}
 }
 
-void	print_grid(t_piece *pieces, int base)
+void	print_grid(t_piece *pieces, const int base)
 {
 	char	*grid;
 

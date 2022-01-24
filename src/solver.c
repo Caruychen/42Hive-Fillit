@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 15:35:01 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/24 11:25:33 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,23 @@
 #include "ft_math.h"
 #include "ft_string.h"
 
-static int	fill_grid(uint16_t *grid, int base, t_piece *piece)
+static int	get_base(const int count)
+{
+	int	base;
+	int	blocks;
+
+	blocks = count * 4;
+	base = ft_sqrt(blocks);
+	if (!base)
+	{
+		base = 3;
+		while (base * base < blocks)
+			++base;
+	}
+	return (base);
+}
+
+static int	fill_grid(uint16_t *grid, const int base, t_piece *piece)
 {
 	t_piece	local;
 
@@ -43,20 +59,12 @@ static int	fill_grid(uint16_t *grid, int base, t_piece *piece)
 	return (0);
 }
 
-int	solve_square(t_piece *pieces, int count)
+int	solve_square(t_piece *pieces, const int count)
 {
 	int			base;
-	int			blocks;
 	uint16_t	grid[16];
 
-	blocks = count * 4;
-	base = ft_sqrt(blocks);
-	if (!base)
-	{
-		base = 3;
-		while (base * base < blocks)
-			++base;
-	}
+	base = get_base(count);
 	ft_bzero(grid, sizeof(*grid) * 16);
 	while (!fill_grid(grid, base, pieces))
 	{

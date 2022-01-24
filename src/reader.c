@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/21 16:24:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/24 11:16:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "fillit.h"
 
-static long	read_piece(int fd, char *buff, long *bytes)
+static long	read_piece(const int fd, char *buff, long *bytes)
 {
 	long	ret;
 
@@ -31,7 +31,7 @@ static long	read_piece(int fd, char *buff, long *bytes)
 	return (*bytes);
 }
 
-static long	get_next_piece(int fd, char *buff)
+static long	get_next_piece(const int fd, char *buff)
 {
 	long	bytes;
 
@@ -43,7 +43,7 @@ static long	get_next_piece(int fd, char *buff)
 	return (1);
 }
 
-static int	reading(int fd, char *buff, int *count)
+static int	reading(const int fd, char *buff, int *count)
 {
 	int	ret;
 
