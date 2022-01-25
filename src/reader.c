@@ -6,14 +6,13 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 12:48:07 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 15:32:20 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include "fillit.h"
-#include <stdio.h>
 
 static long	read_piece(const int fd, char *buff, long *bytes)
 {
