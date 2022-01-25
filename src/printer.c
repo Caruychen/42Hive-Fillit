@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:09 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/24 11:26:25 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 11:39:43 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_grid(char **grid, const int base)
 	int	size;
 
 	size = (base + 1) * base;
-	*grid = ft_strnew(size);
+	*grid = ft_strnew((size_t)size);
 	while (--size >= 0)
 	{
 		if (size % (base + 1) < base)
@@ -31,7 +31,7 @@ static void	init_grid(char **grid, const int base)
 
 static void	insert_char(char **grid, const int base, t_point p, t_piece piece)
 {
-	(*grid)[(piece.y + p.y) * (base + 1) + piece.x + p.x] = piece.letter;
+	(*grid)[(piece.y + p.y) * (base + 1) + piece.x + p.x] = (char)piece.letter;
 }
 
 static void	insert_piece(char **grid, const int base, t_piece piece)

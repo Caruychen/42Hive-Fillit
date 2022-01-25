@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/24 11:16:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 11:40:23 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static long	read_piece(const int fd, char *buff, long *bytes)
 	ret = 0;
 	while (*bytes < TET_BUFF + 1)
 	{
-		ret = read(fd, buff + *bytes, TET_BUFF + 1 - *bytes);
+		ret = read(fd, buff + *bytes, (size_t)(TET_BUFF + 1 - *bytes));
 		if (ret < 0)
 			return (*bytes = ret);
 		if (ret == 0)

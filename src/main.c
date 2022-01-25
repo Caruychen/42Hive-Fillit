@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/24 11:26:50 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 11:53:47 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error("usage: ./fillit source_file");
 	ft_bzero(pieces, sizeof(*pieces) * (MAX_PIECES + 1));
-	if (read_input(argv[1], pieces, &count) < 0)
+	if (read_input(argv[1], pieces, &count) <= 0)
 		error("error");
 	base = solve_square(pieces, count);
 	print_grid(pieces, base);

@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:45:08 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/21 13:57:35 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 11:33:33 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	build_piece(t_piece *piece, const char *str, const int count)
 	get_dimensions(str, &start, &end);
 	piece->width = end.x - start.x + 1;
 	piece->height = end.y - start.y + 1;
-	piece->letter = 'A' + count;
+	piece->letter = (uint8_t)('A' + count);
 	encode_piece(piece, str, start);
 }
