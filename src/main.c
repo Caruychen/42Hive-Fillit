@@ -6,13 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/20 18:43:29 by ssulkuma         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:19:07 by ssulkuma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "ft_stdio.h"
 #include "ft_string.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -22,7 +23,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putendl("usage: ./fillit source_file");
+		ft_putendl("usage: ./fillit [input_file]");
 		return (1);
 	}
 	ft_bzero(pieces, sizeof(t_piece) * (MAX_PIECES + 1));
@@ -32,6 +33,7 @@ int	main(int argc, char **argv)
 		ft_putendl("error");
 		return (-1);
 	}
+	printf("%d\n", count);
 	board = solve_map(count, pieces);
 	print_board(board, pieces);
 	return (0);

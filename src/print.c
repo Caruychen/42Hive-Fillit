@@ -6,22 +6,24 @@
 /*   By: ssulkuma <ssulkuma@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:45:52 by ssulkuma          #+#    #+#             */
-/*   Updated: 2022/01/20 18:46:21 by ssulkuma         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:14:00 by ssulkuma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
 #include "../libft/libft.h"
+#include <stdio.h>
 
 static char	**empty_board(int count)
 {
 	char	**board;
 	int		row;
 
+	printf("%d\n", count);
 	board = (char **)malloc(sizeof(char *) * count);
 	if (!board)
 		return (NULL);
 	row = 0;
-	while (row < count)
+	while (row <= count)
 	{
 		board[row] = ft_strnew(count);
 		ft_memset(board[row], '.', count);
@@ -71,6 +73,7 @@ int		print_board(int count, t_piece *piece)
 	char	**board;
 	
 	board = empty_board(count);
+	printf("%p\n", piece);
 	fill_board(board, piece);
 	row = 0;
 	while (row < count)
