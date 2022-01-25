@@ -6,7 +6,7 @@
 /*   By: ssulkuma <ssulkuma@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 18:45:52 by ssulkuma          #+#    #+#             */
-/*   Updated: 2022/01/25 13:14:00 by ssulkuma         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:01:06 by ssulkuma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
@@ -35,35 +35,31 @@ static char	**empty_board(int count)
 static void	place_piece(char **board, t_piece piece)
 {
 	t_point	pos;
-	int		row;
-	int		col;
 
 	pos.y = 0;
-	row = 0;
 	while (pos.y < piece.height)
 	{
 		pos.x = 0;
-		col = 0;
 		while (pos.x < piece.width)
 		{
 			if ((piece.barray >> (16 * (pos.y + 1) - 1 - pos.x)) & 1)
-				board[row][col] = piece.letter;
+			{
+				printf("%d\n", pos.x);
+				board[pos.y][pos.x] = piece.letter;
+			}		
 			pos.x++;
-			row++;
 		}
 		pos.y++;
-		col++;
 	}
 }
 
-static int	**fill_board(char **board, t_piece *piece)
+static void	fill_board(char **board, t_piece *piece)
 {
 	while(piece->letter)
 	{
 		place_piece(board, *piece);
 		piece++;
 	}
-	return (0);
 }
 
 int		print_board(int count, t_piece *piece)
