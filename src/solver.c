@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:17:23 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/24 11:25:33 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 16:08:57 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 #include "ft_math.h"
 #include "ft_string.h"
 
-static int	get_base(const int count)
+static int	get_size(const int count)
 {
-	int	base;
-	int	blocks;
+	int	size;
 
-	blocks = count * 4;
-	base = ft_sqrt(blocks);
-	if (!base)
+	size = ft_sqrt(count * 4);
+	if (!size)
 	{
-		base = 3;
-		while (base * base < blocks)
-			++base;
+		size = 3;
+		while (size * size < count * 4)
+			++size;
 	}
-	return (base);
+	return (size);
 }
 
-static int	fill_grid(uint16_t *grid, const int base, t_piece *piece)
+static int	fill_bitmap(uint16_t *bitmap, const int size, t_piece *piece)
 {
 	t_piece	local;
 
@@ -38,19 +36,19 @@ static int	fill_grid(uint16_t *grid, const int base, t_piece *piece)
 	if (local.letter == 0)
 		return (1);
 	local.y = 0;
-	while (local.y <= base - local.height)
+	while (local.y <= size - local.height)
 	{
 		local.x = 0;
-		while (local.x <= base - local.width)
+		while (local.x <= size - local.width)
 		{
-			if (!(*(uint64_t *)(grid + local.y) & (local.barray >> local.x)))
+			if (!(*(uint64_t *)(bitmap + local.y) & (local.barray >> local.x)))
 			{
 				piece->x = local.x;
 				piece->y = local.y;
-				*(uint64_t *)(grid + local.y) ^= local.barray >> local.x;
-				if (fill_grid(grid, base, piece + 1))
+				*(uint64_t *)(bitmap + local.y) ^= local.barray >> local.x;
+				if (fill_bitmap(bitmap, size, piece + 1))
 					return (1);
-				*(uint64_t *)(grid + local.y) ^= local.barray >> local.x;
+				*(uint64_t *)(bitmap + local.y) ^= local.barray >> local.x;
 			}
 			local.x++;
 		}
@@ -59,17 +57,17 @@ static int	fill_grid(uint16_t *grid, const int base, t_piece *piece)
 	return (0);
 }
 
-int	solve_square(t_piece *pieces, const int count)
+int	solve_map(t_piece *pieces, const int count)
 {
-	int			base;
-	uint16_t	grid[16];
+	int			size;
+	uint16_t	bitmap[16];
 
-	base = get_base(count);
-	ft_bzero(grid, sizeof(*grid) * 16);
-	while (!fill_grid(grid, base, pieces))
+	size = get_size(count);
+	ft_bzero(bitmap, sizeof(*bitmap) * 16);
+	while (!fill_bitmap(bitmap, size, pieces))
 	{
-		ft_bzero(grid, sizeof(*grid) * 16);
-		++base;
+		ft_bzero(bitmap, sizeof(*bitmap) * 16);
+		++size;
 	}
-	return (base);
+	return (size);
 }
