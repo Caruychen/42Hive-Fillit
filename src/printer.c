@@ -6,67 +6,81 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:09 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 11:39:43 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 16:59:00 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "ft_stdio.h"
 #include "ft_stdlib.h"
+#include "ft_string.h"
 
-static void	init_grid(char **grid, const int base)
+static int	wipe_board(char ***board, int row)
 {
-	int	size;
+	while (row >= 0)
+		ft_strdel(&(*board)[row--]);
+	free(*board);
+	*board = NULL;
+	return (-1);
+}
 
-	size = (base + 1) * base;
-	*grid = ft_strnew((size_t)size);
-	while (--size >= 0)
+static int	init_board(char ***board, const int size)
+{
+	int	row;
+
+	*board = (char **)malloc(sizeof(**board) * size);
+	if (!(*board))
+		return (-1);
+	row = 0;
+	while (row < size)
 	{
-		if (size % (base + 1) < base)
-			(*grid)[size] = '.';
-		else
-			(*grid)[size] = '\n';
+		(*board)[row] = ft_strnew(size);
+		if (!(*board)[row])
+			return (wipe_board(board, row - 1));
+		ft_memset((*board)[row], '.', size);
+		row++;
 	}
+	return (0);
 }
 
-static void	insert_char(char **grid, const int base, t_point p, t_piece piece)
+static void	place_piece(char **board, t_piece piece)
 {
-	(*grid)[(piece.y + p.y) * (base + 1) + piece.x + p.x] = (char)piece.letter;
-}
+	t_point	pos;
 
-static void	insert_piece(char **grid, const int base, t_piece piece)
-{
-	t_point	p;
-
-	p.y = 0;
-	while (p.y < piece.height)
+	pos.y = 0;
+	while (pos.y < piece.height)
 	{
-		p.x = 0;
-		while (p.x < piece.width)
+		pos.x = 0;
+		while (pos.x < piece.width)
 		{
-			if ((piece.barray >> (16 * (p.y + 1) - 1 - p.x)) & 1)
-				insert_char(grid, base, p, piece);
-			++p.x;
+			if ((piece.barray >> (16 * (pos.y + 1) - 1 - pos.x)) & 1)
+				board[piece.y + pos.y][piece.x + pos.x] = (char)piece.letter;
+			++pos.x;
 		}
-		++p.y;
+		++pos.y;
 	}
 }
 
-static void	fill_grid(char **grid, const int base, t_piece *pieces)
+static void	fill_board(char **board, t_piece *pieces)
 {
 	while (pieces->letter)
 	{
-		insert_piece(grid, base, *pieces);
+		place_piece(board, *pieces);
 		++pieces;
 	}
 }
 
-void	print_grid(t_piece *pieces, const int base)
+int	print_board(t_piece *pieces, const int size)
 {
-	char	*grid;
+	char	**board;
+	int		row;
 
-	init_grid(&grid, base);
-	fill_grid(&grid, base, pieces);
-	ft_putstr(grid);
-	ft_strdel(&grid);
+	if (init_board(&board, size) < 0)
+		return (-1);
+	fill_board(board, pieces);
+	row = 0;
+	while (row < size)
+		ft_putendl(board[row++]);
+	wipe_board(&board, size - 1);
+	return (0);
 }

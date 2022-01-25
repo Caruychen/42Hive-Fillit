@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:44:20 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 16:09:39 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 17:01:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	if (read_input(argv[1], pieces, &count) <= 0)
 		error("error");
 	size = solve_map(pieces, count);
-	print_grid(pieces, size);
+	if (print_board(pieces, size) < 0)
+		error("error");
 	return (0);
 }

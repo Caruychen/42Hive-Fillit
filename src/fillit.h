@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:34:12 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 15:59:44 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 16:35:13 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int		valid_piece(const char *src, const int bytes);
 int		read_input(const char *filename, t_piece *pieces, int *count);
 void	build_piece(t_piece *piece, const char *str, const int count);
 int		solve_map(t_piece *pieces, int count);
-void	print_grid(t_piece *pieces, int base);
+int		print_board(t_piece *pieces, const int size);
 
 #endif
