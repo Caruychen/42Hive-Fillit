@@ -6,7 +6,7 @@
 #    By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 10:47:58 by cchen             #+#    #+#              #
-#    Updated: 2022/01/25 11:54:33 by cchen            ###   ########.fr        #
+#    Updated: 2022/01/25 17:10:29 by cchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,10 @@ HEADER := $(SRC_DIR)/$(NAME).h
 
 .PHONY: all clean fclean re
 
-all:
-	$(MAKE) -C $(LIBFT)
-	$(MAKE) $(NAME)
+all: $(NAME)
 
 $(NAME): $(SRC) $(HEADER)
+	$(MAKE) -C $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRC) $(L_FT) -o $(NAME)
 
 clean:
