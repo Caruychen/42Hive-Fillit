@@ -6,13 +6,14 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 11:40:23 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/25 12:48:07 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include "fillit.h"
+#include <stdio.h>
 
 static long	read_piece(const int fd, char *buff, long *bytes)
 {
@@ -40,17 +41,20 @@ static long	get_next_piece(const int fd, char *buff)
 		return (bytes);
 	if (!valid_piece(buff, (int) bytes))
 		return (-1);
-	return (1);
+	return (bytes);
 }
 
 static int	reading(const int fd, char *buff, int *count)
 {
-	int	ret;
+	static int	res;
+	int			curr_res;	
 
-	ret = (int) get_next_piece(fd, buff);
-	if (ret < 0 || *count == 26)
+	curr_res = (int) get_next_piece(fd, buff);
+	if (curr_res < 0 || *count == 26)
 		return (*count = -1);
-	return (ret);
+	if (curr_res == 0 && res > 20)
+		return (*count = -1);
+	return (res = curr_res);
 }
 
 int	read_input(const char *filename, t_piece *pieces, int *count)
