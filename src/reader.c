@@ -6,7 +6,7 @@
 /*   By: cchen <cchen@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:25:52 by cchen             #+#    #+#             */
-/*   Updated: 2022/01/25 15:32:20 by cchen            ###   ########.fr       */
+/*   Updated: 2022/01/26 17:14:16 by cchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ static int	reading(const int fd, char *buff, int *count)
 	int			curr_res;	
 
 	curr_res = (int) get_next_piece(fd, buff);
-	if (curr_res < 0 || *count == 26)
+	if (curr_res < 0)
 		return (*count = -1);
 	if (curr_res == 0 && res > 20)
+		return (*count = -1);
+	if (curr_res > 0 && *count == 26)
 		return (*count = -1);
 	return (res = curr_res);
 }
